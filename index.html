@@ -2017,6 +2017,16 @@
                 practiceSessions.push(sessionData);
                 updateSessionsTable();
                 updateStudentFilter();
+                // Save to Firestore
+                if (typeof db !== 'undefined') {
+                  db.collection('practiceSessions').add(sessionData)
+                    .then(() => {
+                      showNotification('Practice session saved to Firebase!', 'success');
+                    })
+                    .catch((error) => {
+                      showNotification('Error saving session: ' + error, 'error');
+                    });
+                }
             }
             
             //
@@ -2036,11 +2046,19 @@
                     questions: questions,
                     dateCreated: new Date().toLocaleString()
                 };
-                
                 assignments.push(newAssignment);
                 updateAssignmentsList();
                 updateAssignmentDropdown();
-                
+                // Save to Firestore
+                if (typeof db !== 'undefined') {
+                  db.collection('assignments').add(newAssignment)
+                    .then(() => {
+                      showNotification('Assignment saved to Firebase!', 'success');
+                    })
+                    .catch((error) => {
+                      showNotification('Error saving assignment: ' + error, 'error');
+                    });
+                }
                 return newAssignment;
             }
             
