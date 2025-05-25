@@ -2014,6 +2014,7 @@
             
             // Save practice session data
             function savePracticeSession(sessionData) {
+                console.log("savePracticeSession called", sessionData); // Debug log
                 practiceSessions.push(sessionData);
                 updateSessionsTable();
                 updateStudentFilter();
