@@ -827,7 +827,7 @@
                             
                             <div id="noDataMessage" class="py-12 text-center text-neutral-500 dark:text-neutral-400 hidden">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-3 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <p>No practice sessions recorded yet.</p>
                                 <p class="text-sm mt-1">Student activity will appear here after practice.</p>
@@ -2834,6 +2834,42 @@
                 addSubtractionLines();
             }
         });
+    </script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyCiN3EAZGltPNPdFX9GG0ugNmed_uWZvjQ",
+        authDomain: "division-v003-firebase.firebaseapp.com",
+        projectId: "division-v003-firebase",
+        storageBucket: "division-v003-firebase.appspot.com",
+        messagingSenderId: "339788693895",
+        appId: "1:339788693895:web:55dfe5846d7a64803a9322",
+        measurementId: "G-KPHKB4WGSZ"
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
+    <button onclick="saveData()">Save Test Data</button>
+    <button onclick="loadData()">Load Data</button>
+    <script>
+      function saveData() {
+        db.collection("testCollection").add({
+          name: "Alice",
+          score: 100
+        }).then(() => {
+          alert("Data saved!");
+        }).catch((error) => {
+          alert("Error saving data: " + error);
+        });
+      }
+      function loadData() {
+        db.collection("testCollection").get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            alert("Loaded: " + JSON.stringify(doc.data()));
+          });
+        }).catch((error) => {
+          alert("Error loading data: " + error);
+        });
+      }
     </script>
 </body>
 </html>
